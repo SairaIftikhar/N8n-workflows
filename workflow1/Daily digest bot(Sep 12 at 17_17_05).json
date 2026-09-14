@@ -1,0 +1,337 @@
+{
+  "updatedAt": "2026-09-12T12:26:07.431Z",
+  "createdAt": "2026-09-09T14:23:00.821Z",
+  "id": "XVJoT9l3gsNHwX5X",
+  "name": "Daily digest bot",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1136,
+        -160
+      ],
+      "id": "6f554af3-d38a-4ee4-9dd1-955192c57785",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=31.5204&longitude=74.3587&current_weather=true",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -832,
+        -160
+      ],
+      "id": "95d3c47e-2504-4ab0-ae3a-06ade7ac84ba",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "da5e1285-5239-458c-a07a-ce1be6983427",
+              "name": "Summary",
+              "value": "=Today in Lahore: {{ $json.current_weather.temperature }}°C, wind {{ $json.current_weather.windspeed }} km/h.\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -592,
+        -160
+      ],
+      "id": "7221aeb6-757f-4a20-b8e4-bcb9130cf905",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sendTo": "cheffrubabqasim@gmail.com",
+        "subject": "Weather update",
+        "emailType": "text",
+        "message": "={{ $json.Summary }}.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -368,
+        -160
+      ],
+      "id": "abe1fed6-1223-413d-9e3e-ae004fb9d73e",
+      "name": "Send a message",
+      "webhookId": "e5172fa3-7f80-4b87-85b5-864b3ba45cb8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "S5zqgRYY6VJM6hdZ",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "America/New_York",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        null
+      ],
+      "recurrenceRuleSignatures": [
+        null
+      ]
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "nodeGroups": [],
+  "pinData": {},
+  "versionId": "06ca1163-7c06-4b73-b61a-2b244e20af29",
+  "activeVersionId": "06ca1163-7c06-4b73-b61a-2b244e20af29",
+  "versionCounter": 86,
+  "triggerCount": 1,
+  "sourceWorkflowId": null,
+  "tags": [],
+  "parentFolder": null,
+  "activeVersion": {
+    "updatedAt": "2026-09-12T12:26:30.000Z",
+    "createdAt": "2026-09-12T12:26:07.432Z",
+    "versionId": "06ca1163-7c06-4b73-b61a-2b244e20af29",
+    "workflowId": "XVJoT9l3gsNHwX5X",
+    "nodes": [
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 8,
+                "triggerAtMinute": 30
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.4,
+        "position": [
+          -1136,
+          -160
+        ],
+        "id": "6f554af3-d38a-4ee4-9dd1-955192c57785",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {
+          "url": "https://api.open-meteo.com/v1/forecast?latitude=31.5204&longitude=74.3587&current_weather=true",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          -832,
+          -160
+        ],
+        "id": "95d3c47e-2504-4ab0-ae3a-06ade7ac84ba",
+        "name": "HTTP Request"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "da5e1285-5239-458c-a07a-ce1be6983427",
+                "name": "Summary",
+                "value": "=Today in Lahore: {{ $json.current_weather.temperature }}°C, wind {{ $json.current_weather.windspeed }} km/h.\n",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.5,
+        "position": [
+          -592,
+          -160
+        ],
+        "id": "7221aeb6-757f-4a20-b8e4-bcb9130cf905",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "sendTo": "cheffrubabqasim@gmail.com",
+          "subject": "Weather update",
+          "emailType": "text",
+          "message": "={{ $json.Summary }}.",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.gmail",
+        "typeVersion": 2.2,
+        "position": [
+          -368,
+          -160
+        ],
+        "id": "abe1fed6-1223-413d-9e3e-ae004fb9d73e",
+        "name": "Send a message",
+        "webhookId": "e5172fa3-7f80-4b87-85b5-864b3ba45cb8",
+        "credentials": {
+          "gmailOAuth2": {
+            "id": "S5zqgRYY6VJM6hdZ",
+            "name": "Gmail account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Send a message",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "Saira  ",
+    "name": "Version last3",
+    "description": "",
+    "autosaved": true,
+    "workflowPublishHistory": [
+      {
+        "createdAt": "2026-09-12T12:26:30.560Z",
+        "id": 13,
+        "workflowId": "XVJoT9l3gsNHwX5X",
+        "versionId": "06ca1163-7c06-4b73-b61a-2b244e20af29",
+        "event": "activated",
+        "userId": "0c65d25d-5429-48b8-90d6-b226f24317dd"
+      }
+    ]
+  },
+  "homeProject": {
+    "id": "6wDL0c9EViyXKX9C",
+    "type": "personal",
+    "name": "Saira   <saira.iftikhar123@gmail.com>",
+    "icon": null
+  },
+  "sharedWithProjects": [],
+  "usedCredentials": [
+    {
+      "id": "S5zqgRYY6VJM6hdZ",
+      "name": "Gmail account",
+      "type": "gmailOAuth2",
+      "currentUserHasAccess": true,
+      "homeProject": {
+        "id": "6wDL0c9EViyXKX9C",
+        "type": "personal",
+        "name": "Saira   <saira.iftikhar123@gmail.com>",
+        "icon": null
+      },
+      "sharedWithProjects": []
+    }
+  ],
+  "scopes": [
+    "execution:reveal",
+    "workflow:create",
+    "workflow:delete",
+    "workflow:disableRedaction",
+    "workflow:enableRedaction",
+    "workflow:execute",
+    "workflow:execute-chat",
+    "workflow:export",
+    "workflow:import",
+    "workflow:list",
+    "workflow:move",
+    "workflow:publish",
+    "workflow:read",
+    "workflow:share",
+    "workflow:unpublish",
+    "workflow:unshare",
+    "workflow:update"
+  ],
+  "checksum": "b4646b6dee211a34dffe09d3f061d48a6dc6d9eacff69c749308a57592ee7dc5"
+}
